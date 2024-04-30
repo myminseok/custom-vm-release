@@ -7,7 +7,7 @@ this release supports keeping the custom routes in case of:
 - vm is provisioned
 - vm is rebooted
 - if director vm is recreated and all customer network on bosh deployed vm will be reset by bosh-agent. this release can persist the custom network routes
-- deleting the custom network config file /etc/systemd/network/10_ethx_network.d/custom-network.conf
+- deleting the custom network config file /etc/systemd/network/10_ethX_network.d/custom-network.conf
 
 all required custom config will be set in bosh runtime-config file. 
 
@@ -27,7 +27,7 @@ addons:
         cidr: 192.4.1.0/24
         gateway: 192.168.40.1
 ```        
-and it will be configured to the target VM on additinal config under subdirectory named aftereach NIC name.
+and it will be configured to the target VM on additiㅐnal config under subdirectory named after each NIC name.
 ```
 /etc/systemd/network/10_eth1.network.d/custom-network.conf
 
@@ -44,14 +44,15 @@ Gateway=192.168.40.1
 Destination=192.3.1.0/24
 ```
 
+note that, this repo has been tested in TAS 4.x on ubuntu jammy stemcell.
 
 Usage
 -----
 
-### build
+### Build release
 
 
-#### build steps summary
+#### Build steps summary
 
 ```
 cd custom-vm-release
@@ -129,7 +130,7 @@ custom-vm-release              	0+dev.11               	96502c9+
 ```
 
 
-### create runtime config
+### Create runtime config
 add custom route config info into runtime config, custom-vm-release-runtimeconfig.yml
 ```
 releases:
@@ -172,7 +173,7 @@ bosh -d p-isolation-segment-is1-6e18f0c63108927910d4 manifest > iso-manifest.yml
 bosh -d p-isolation-segment-is1-6e18f0c63108927910d4 deploy iso-manifest.yml
 ```
 
-### bosh release artifacts
+### Artifacts to be created on VM
 then, following artifacts are created in the deployed VM
 
 ```
@@ -190,9 +191,9 @@ routing_ctl
 
 ```
 
-### custom network config
+### Custom network config
 
-####  default network config by bosh-agent.
+#### Default network config by bosh-agent.
 ```
 /etc/systemd/network/10_eth0.network
 /etc/systemd/network/10_eth1.network
@@ -225,7 +226,7 @@ Address=192.168.40.11/24
 DNS=192.168.0.5
 ```
 
-####  Custom network config by this custom bosh release
+#### Custom network config by this custom bosh release
 
 ```
 find /etc/systemd/network
