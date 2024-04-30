@@ -296,6 +296,10 @@ build final relase
 ```
 bosh create-release --final --version=1.0.0
 ```
+to clean release delete version from:
+- dev_releases/
+- releases/
+- .final_builds/
 
 deploy complilation deployment. it does not allocate any resources when deployed.  reference https://bosh.io/docs/compiled-releases/
 ```
@@ -323,9 +327,8 @@ update:
   canary_watch_time: 1000-90000
   max_in_flight: 1
   update_watch_time: 1000-90000
-
-
 ```
+
 export release with the correct os/version from above
 ```
 bosh -d compilation-deployment export-release custom-vm-release/1.0.0 ubuntu-jammy/1.360
