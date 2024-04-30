@@ -25,6 +25,9 @@ addons:
       - device: eth1
         cidr: 192.4.1.0/24
         gateway: 192.168.40.1
+      - device: eth1
+        cidr: 192.5.1.0/24
+        gateway: 192.168.40.1
 ```        
 and it will be configured to the target VM on additional config under subdirectory named after each NIC name.
 ```
@@ -38,9 +41,6 @@ Destination=192.4.1.0/24
 Gateway=192.168.40.1
 Destination=192.5.1.0/24
 
-[Route]
-Gateway=192.168.40.1
-Destination=192.3.1.0/24
 ```
 
 note that, this repo has been tested in TAS 4.x on ubuntu jammy stemcell.
