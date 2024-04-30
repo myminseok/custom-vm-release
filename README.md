@@ -48,7 +48,7 @@ note that, this repo has been tested in TAS 4.x on ubuntu jammy stemcell.
 Usage
 -----
 
-## steps summary
+## Steps summary
 
 ```
 bosh upload-release ./custom-vm-release-1.0.1.tgz
@@ -57,10 +57,11 @@ bosh update-runtime-config --name=custom-vm-release-addon ./runtimeconfig.yml
 
 bosh config --type=runtime --name=custom-vm-release-addon
 
-bosh -d p-isolation-segment-is1-6e18f0c63108927910d4 manifest > manifest.yml
+bosh -d TARGET_DEPLOYMENT manifest > manifest.yml
 
-bosh -d p-isolation-segment-is1-6e18f0c63108927910d4 deploy manifest.yml
+bosh -d TARGET_DEPLOYMENT deploy manifest.yml
 ```
+
 
 ## Detailed steps
 
