@@ -51,7 +51,12 @@ Usage
 ## Steps summary
 
 ```
-bosh upload-release ./custom-vm-release-1.0.1.tgz
+bosh create-release --final --version=1.0.0
+
+bosh create-release releases/custom-vm-release/custom-vm-release-1.0.0.yml \
+        --tarball ./custom-vm-release-1.0.0.tgz
+
+bosh upload-release ./custom-vm-release-1.0.0.tgz
 
 bosh update-runtime-config --name=custom-vm-release-addon ./runtimeconfig.yml
 
@@ -66,37 +71,45 @@ bosh -d TARGET_DEPLOYMENT deploy manifest.yml
 ## Detailed steps
 
 ### (optional) Build Final Release
-you can use the existing release, but you can build your own release if required. unzip this repo to any environment where bosh command is available such as opsmanager.
+you can use the existing release, but you can build your own release if required. unzip this repo to any environment where bosh command is available such as ops-manager.
 ```
 cd custom-vm-release
 ```
-then build release under current directory. check with existion version list from ./releases/custom-vm-release/ and pick new one.
+following command will build a new release under current directory.
 ```
-bosh create-release --final --version=1.0.1
+bosh create-release --final --version=1.0.0
 ```
 
-it will generates following files.
+it will generates files under following directory: 
 - dev_releases/
 - releases/
 - .final_builds/
-to delete specific build version, remove related files above.
 
-now package release with specific version info.
+you can pick a next version by listing the existing version from ./releases/custom-vm-release/.
+and if there is a version conflict, you can clean up by deleting specific build version or remove the related files above.
+ or delete the above folders to clean them all. 
+
+now package a new release with specific version info locally.
 ```
-bosh create-release releases/custom-vm-release/custom-vm-release-1.0.1.yml \
-        --tarball ./custom-vm-release-1.0.1.tgz
+bosh create-release releases/custom-vm-release/custom-vm-release-1.0.0.yml \
+        --tarball ./custom-vm-release-1.0.0.tgz
 ```
 ### Upload release
-now login in to bosh env and upload the release
+login in to bosh env and upload the release
 ```
 bosh env
-bosh upload-release ./custom-vm-release-1.0.1.tgz
+bosh upload-release ./custom-vm-release-1.0.0.tgz
 ```
 verify uploaded release
 ```
 bosh releases | grep custom
-custom-vm-release              	1.0.1        	23e13f4
+custom-vm-release              	1.0.0        	23e13f4
 
+```
+
+note that if you run again without version, it will increase version to next patch locally. and you can clean up by deleting specific build version related files from above folder.
+```
+bosh create-release --final 
 ```
 
 ### Create runtime config
@@ -104,7 +117,7 @@ add custom route config info into runtime config, [runtimeconfig.yml](runtimecon
 ```
 releases:
 - name: custom-vm-release
-  version: 1.0.1
+  version: 1.0.0
 
 addons:
 - name: custom-vm-release-addon
