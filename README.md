@@ -269,6 +269,20 @@ default via 192.168.0.1 dev eth0 proto static
 192.168.40.0/24 dev eth1 proto kernel scope link src 192.168.40.11
 ```
 
+### recovering custom config.
+for any reason, the custom network config file is missing, /etc/systemd/network/10_ethX_network.d/custom-network.conf, then monit `custom-vm-routing` monit kicks in and re-configure the setting by running `/var/vcap/jobs/custom-vm-routing/bin/configure_routes`
+the activity is found in the log file.
+```
+isolated_diego_cell_is1/a4ccb2fa-af7a-48d1-b9de-1e8bb2a70be6:/var/vcap/bosh/log# tail -f /var/vcap/sys/log/custom-vm-routing/custom-vm-routing.log
+[monitor_routes]  start monitoring network routes
+[monitor_routes] WARNING: missing route config file: /etc/systemd/network/10_eth1.network.d/custom-network.conf
+[configure_routes] reconfiguring network routes...
+[configure_routes] creating network route config /etc/systemd/network/10_eth1.network.d/custom-network.conf
+[configure_routes] creating network route config /etc/systemd/network/10_eth1.network.d/custom-network.conf
+[configure_routes] creating network route config /etc/systemd/network/10_eth1.network.d/custom-network.conf
+[configure_routes]  restarting network
+```
+
 
 ### Reference
 - https://bosh.io/docs/create-release/
