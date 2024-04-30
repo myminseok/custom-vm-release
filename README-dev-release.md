@@ -1,115 +1,89 @@
-Custom VM bosh release for customizing routes
-===============
-this document explains how to customize network route config using runtime config and custom bosh release.
+## Build Dev Release
 
-this release supports keeping the custom routes in case of:
-- vm is provisioned
-- vm is rebooted
-- if director vm is recreated and all customer network on bosh deployed vm will be reset by bosh-agent. this release can persist the custom network routes
-- deleting the custom network config file /etc/systemd/network/10_ethX_network.d/custom-network.conf
-
-all required custom config will be set in bosh runtime-config file. 
+#### Build steps summary
 
 ```
-addons:
-- name: custom-vm-release-addon
-  include:
-    deployments:
-    - p-isolation-segment-is1-6e18f0c63108927910d4
-  jobs:
-  - name: custom-vm-routing
-    release: custom-vm-release
-    properties:
-      default_gw: 192.168.0.1
-      routes:
-      - device: eth1
-        cidr: 192.4.1.0/24
-        gateway: 192.168.40.1
-```        
-and it will be configured to the target VM on additional config under subdirectory named after each NIC name.
-```
-/etc/systemd/network/10_eth1.network.d/custom-network.conf
+cd custom-vm-release
 
-[Route]
-Gateway=192.168.40.1
-Destination=192.4.1.0/24
+bosh create-release --force
 
-[Route]
-Gateway=192.168.40.1
-Destination=192.5.1.0/24
+bosh upload-release
 
-[Route]
-Gateway=192.168.40.1
-Destination=192.3.1.0/24
-```
+bosh releases | grep custom
 
-note that, this repo has been tested in TAS 4.x on ubuntu jammy stemcell.
+bosh update-runtime-config --name=custom-vm-release-is ./runtimeconfig.yml
 
-Usage
------
-
-## steps summary
-
-```
-bosh create-release --final --version=1.0.1
-
-bosh create-release releases/custom-vm-release/custom-vm-release-1.0.1.yml \
-        --tarball ./custom-vm-release-1.0.1.tgz
-
-bosh upload-release ./custom-vm-release-1.0.1.tgz
-
-bosh update-runtime-config --name=custom-vm-release-addon ./runtimeconfig.yml
-
-bosh config --type=runtime --name=custom-vm-release-addon
+bosh config --type=runtime --name=custom-vm-release-is
 
 bosh -d p-isolation-segment-is1-6e18f0c63108927910d4 manifest > manifest.yml
 
 bosh -d p-isolation-segment-is1-6e18f0c63108927910d4 deploy manifest.yml
 ```
 
-## Detailed steps
-
-### Build Final Release
+#### Detailed build steps
 unzip this repo to any environment where bosh command is available such as opsmanager. build
 ```
 cd custom-vm-release
 ```
+then build dev release under current directory
 
-then build release under current directory.
 ```
-bosh create-release --final --version=1.0.1
-```
+bosh create-release --force
 
-it will generates following files.
-- dev_releases/
-- releases/
-- .final_builds/
-to delete specific build version, remove related files above.
+Adding job 'custom-vm-routing/d76f674f807f766d1bf37004e400491925ce9b7b1fa653788b21f17087e8b214'...
+Added job 'custom-vm-routing/d76f674f807f766d1bf37004e400491925ce9b7b1fa653788b21f17087e8b214'
+Added dev release 'custom-vm-release/0+dev.11'
 
-now package release with specific version info.
-```
-bosh create-release releases/custom-vm-release/custom-vm-release-1.0.1.yml \
-        --tarball ./custom-vm-release-1.0.1.tgz
+Name         custom-vm-release
+Version      0+dev.11
+Commit Hash  96502c9+
+
+Job                                                                                 Digest                                                                   Packages
+custom-vm-routing/d76f674f807f766d1bf37004e400491925ce9b7b1fa653788b21f17087e8b214  sha256:94d22244bda0ce957fa238069cd0624ab7816b3a0fdc2e146990a6ce137b822a  -
+
+1 jobs
+
+Package  Digest  Dependencies
+
+0 packages
+
+Succeeded
 ```
 
 now login in to bosh env and upload the release
 ```
-bosh env
-bosh upload-release ./custom-vm-release-1.0.1.tgz
+bosh upload-release
+Using environment '192.168.0.55' as client 'ops_manager'
+
+[-----------------------------------------------------------------] 100.00%   0s
+Task 1655
+
+Task 1655 | 08:36:13 | Extracting release: Extracting release (00:00:00)
+Task 1655 | 08:36:13 | Verifying manifest: Verifying manifest (00:00:00)
+Task 1655 | 08:36:13 | Resolving package dependencies: Resolving package dependencies (00:00:00)
+Task 1655 | 08:36:13 | Creating new jobs: custom-vm-routing/d76f674f807f766d1bf37004e400491925ce9b7b1fa653788b21f17087e8b214 (00:00:00)
+Task 1655 | 08:36:13 | Release has been created: custom-vm-release/0+dev.11 (00:00:00)
+
+Task 1655 Started  Tue Apr 30 08:36:13 UTC 2024
+Task 1655 Finished Tue Apr 30 08:36:13 UTC 2024
+Task 1655 Duration 00:00:00
+Task 1655 done
+
+Succeeded
 ```
-verify uploaded release
-```
-bosh releases | grep custom
-custom-vm-release              	1.0.1        	23e13f4
 
 ```
+bosh releases | grep custom
+custom-vm-release              	0+dev.11               	96502c9+
+```
+
 
 ### Create runtime config
 add custom route config info into runtime config, [runtimeconfig.yml](runtimeconfig.yml)
 ```
 releases:
 - name: custom-vm-release
-  version: 1.0.1
+  version: 0+dev.11
 
 addons:
 - name: custom-vm-release-addon
@@ -135,14 +109,14 @@ addons:
 
 update runtime config and verify. optionally delete old config if need
 ```
-bosh update-runtime-config --name=custom-vm-release-addon ./runtimeconfig.yml
-bosh config --type=runtime --name=custom-vm-release-addon
-bosh delete-config --type=runtime --name=custom-vm-release-addon
+bosh update-runtime-config --name=custom-vm-release-is ./runtimeconfig.yml
+bosh config --type=runtime --name=custom-vm-release-is
+bosh delete-config --type=runtime --name=custom-vm-release-is
 ```
 
 
-### Apply runtime config to deployment
-use any existing deployment
+### Apply runtime config to deployment for testing purpose
+use any existing deployment for testing
 ```
 bosh -d p-isolation-segment-is1-6e18f0c63108927910d4 manifest > manifest.yml
 bosh -d p-isolation-segment-is1-6e18f0c63108927910d4 deploy manifest.yml
@@ -163,6 +137,7 @@ Process 'custom-vm-routing'         running
 configure_routes
 monitor_routes
 routing_ctl
+
 ```
 
 ### Verify the applied custom network config
@@ -200,7 +175,7 @@ Address=192.168.40.11/24
 DNS=192.168.0.5
 ```
 
-#### Verify custom network config created by this custom bosh release
+#### Custom network config by this custom bosh release
 
 ```
 find /etc/systemd/network
@@ -243,7 +218,7 @@ default via 192.168.0.1 dev eth0 proto static
 192.168.40.0/24 dev eth1 proto kernel scope link src 192.168.40.11
 ```
 
-#### Check release logs/Troubleshooting
+### recovering custom config.
 for any reason, the custom network config file is missing, /etc/systemd/network/10_ethX_network.d/custom-network.conf, then monit `custom-vm-routing` monit kicks in and re-configure the setting by running `/var/vcap/jobs/custom-vm-routing/bin/configure_routes`
 the activity is found in the log file.
 ```
