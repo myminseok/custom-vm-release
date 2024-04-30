@@ -300,6 +300,7 @@ to clean release delete version from:
 - dev_releases/
 - releases/
 - .final_builds/
+- /tmp/custom-vm-release/(optional)
 
 deploy complilation deployment. it does not allocate any resources when deployed.  reference https://bosh.io/docs/compiled-releases/
 ```
@@ -308,25 +309,12 @@ bosh -d compilation-deployment deploy complication-deployment.yml
 
 verify os version info
 ```
-bosh -d compilation-deployment manifest
+bosh stemcells
+
 Using environment '192.168.0.55' as client 'ops_manager'
+Name                                     Version  OS            CPI                   CID
+bosh-vsphere-esxi-ubuntu-jammy-go_agent  1.360*   ubuntu-jammy  ef3542b599f10b338ad6  sc-416cde69-ea80-49ab-a9c3-1353401abff0
 
-Using deployment 'compilation-deployment'
-
-instance_groups: []
-name: compilation-deployment
-releases:
-- name: custom-vm-release
-  version: 1.0.0
-stemcells:
-- alias: default
-  os: ubuntu-jammy
-  version: latest
-update:
-  canaries: 1
-  canary_watch_time: 1000-90000
-  max_in_flight: 1
-  update_watch_time: 1000-90000
 ```
 
 export release with the correct os/version from above
