@@ -27,7 +27,7 @@ addons:
         cidr: 192.4.1.0/24
         gateway: 192.168.40.1
 ```        
-and it will be configured to the target VM on additiㅐnal config under subdirectory named after each NIC name.
+and it will be configured to the target VM on additional config under subdirectory named after each NIC name.
 ```
 /etc/systemd/network/10_eth1.network.d/custom-network.conf
 
@@ -62,13 +62,13 @@ bosh upload-release
 
 bosh releases | grep custom
 
-bosh update-runtime-config --name=custom-vm-release-is ./custom-vm-release-runtimeconfig.yml
+bosh update-runtime-config --name=custom-vm-release-is ./runtimeconfig.yml
 
 bosh config --type=runtime --name=custom-vm-release-is
 
-bosh -d p-isolation-segment-is1-6e18f0c63108927910d4 manifest > iso-manifest.yml
+bosh -d p-isolation-segment-is1-6e18f0c63108927910d4 manifest > manifest.yml
 
-bosh -d p-isolation-segment-is1-6e18f0c63108927910d4 deploy iso-manifest.yml
+bosh -d p-isolation-segment-is1-6e18f0c63108927910d4 deploy manifest.yml
 ```
 
 #### Detailed build steps
@@ -130,7 +130,7 @@ custom-vm-release              	0+dev.11               	96502c9+
 
 
 ### Create runtime config
-add custom route config info into runtime config, custom-vm-release-runtimeconfig.yml
+add custom route config info into runtime config, [runtimeconfig.yml](runtimeconfig.yml)
 ```
 releases:
 - name: custom-vm-release
@@ -160,19 +160,20 @@ addons:
 
 update runtime config and verify. optionally delete old config if need
 ```
-bosh update-runtime-config --name=custom-vm-release-is ./custom-vm-release-runtimeconfig.yml
+bosh update-runtime-config --name=custom-vm-release-is ./runtimeconfig.yml
 bosh config --type=runtime --name=custom-vm-release-is
 bosh delete-config --type=runtime --name=custom-vm-release-is
 ```
 
 
-### Apply runtime config to deployment
+### Apply runtime config to deployment for testing purpose
+use any existing deployment for testing
 ```
-bosh -d p-isolation-segment-is1-6e18f0c63108927910d4 manifest > iso-manifest.yml
-bosh -d p-isolation-segment-is1-6e18f0c63108927910d4 deploy iso-manifest.yml
+bosh -d p-isolation-segment-is1-6e18f0c63108927910d4 manifest > manifest.yml
+bosh -d p-isolation-segment-is1-6e18f0c63108927910d4 deploy manifest.yml
 ```
 
-### Artifacts to be created on VM
+### Verify artifacts created on VM
 then, following artifacts are created in the deployed VM
 
 ```
@@ -190,7 +191,7 @@ routing_ctl
 
 ```
 
-### Custom network config
+### Verify the applied custom network config
 
 #### Default network config by bosh-agent.
 ```
@@ -281,8 +282,6 @@ isolated_diego_cell_is1/a4ccb2fa-af7a-48d1-b9de-1e8bb2a70be6:/var/vcap/bosh/log#
 [configure_routes] creating network route config /etc/systemd/network/10_eth1.network.d/custom-network.conf
 [configure_routes]  restarting network
 ```
-
-
 
 ### Reference
 - https://bosh.io/docs/create-release/
