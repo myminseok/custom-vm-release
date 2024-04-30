@@ -61,7 +61,7 @@ bosh create-release --force
 
 bosh upload-release
 
-bosh releases | grep routing
+bosh releases | grep custom
 
 bosh update-runtime-config --name=custom-vm-release-is ./custom-vm-release-runtimeconfig.yml
 
@@ -282,6 +282,72 @@ isolated_diego_cell_is1/a4ccb2fa-af7a-48d1-b9de-1e8bb2a70be6:/var/vcap/bosh/log#
 [configure_routes] creating network route config /etc/systemd/network/10_eth1.network.d/custom-network.conf
 [configure_routes]  restarting network
 ```
+
+
+### Export release(experimental)
+
+bosh director should be ready.
+
+```
+bosh env
+```
+
+build final relase
+```
+bosh create-release --final --version=1.0.0
+```
+
+deploy complilation deployment. it does not allocate any resources when deployed.  reference https://bosh.io/docs/compiled-releases/
+```
+bosh -d compilation-deployment deploy complication-deployment.yml
+```
+
+verify os version info
+```
+bosh -d compilation-deployment manifest
+Using environment '192.168.0.55' as client 'ops_manager'
+
+Using deployment 'compilation-deployment'
+
+instance_groups: []
+name: compilation-deployment
+releases:
+- name: custom-vm-release
+  version: 1.0.0
+stemcells:
+- alias: default
+  os: ubuntu-jammy
+  version: latest
+update:
+  canaries: 1
+  canary_watch_time: 1000-90000
+  max_in_flight: 1
+  update_watch_time: 1000-90000
+
+
+```
+export release with the correct os/version from above
+```
+bosh -d compilation-deployment export-release custom-vm-release/1.0.0 ubuntu-jammy/1.360
+
+Using environment '192.168.0.55' as client 'ops_manager'
+
+Using deployment 'compilation-deployment'
+
+Task 1732
+
+Task 1732 | 13:07:52 | Preparing package compilation: Finding packages to compile (00:00:00)
+Task 1732 | 13:07:52 | copying jobs: custom-vm-routing/d76f674f807f766d1bf37004e400491925ce9b7b1fa653788b21f17087e8b214 (00:00:00)
+
+Task 1732 Started  Tue Apr 30 13:07:52 UTC 2024
+Task 1732 Finished Tue Apr 30 13:07:52 UTC 2024
+Task 1732 Duration 00:00:00
+Task 1732 done
+
+Downloading resource '71ba8056-657a-4946-98d7-7afc77ad7ef9' to '/home/ubuntu/workspace/custom-vm-release/custom-vm-release-1.0.0-ubuntu-jammy-1.360-20240430-130752-233248917.tgz'...
+
+```
+
 
 
 ### Reference

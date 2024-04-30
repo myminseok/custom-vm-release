@@ -1,6 +1,6 @@
 releases:
 - name: custom-vm-release
-  version: 0+dev.10
+  version: 1.0.1
 
 addons:
 - name: custom-vm-release-addon

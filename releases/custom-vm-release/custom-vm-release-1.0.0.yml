@@ -1,0 +1,14 @@
+name: custom-vm-release
+version: 1.0.0
+commit_hash: fed8e80
+uncommitted_changes: false
+jobs:
+- name: custom-vm-routing
+  version: d76f674f807f766d1bf37004e400491925ce9b7b1fa653788b21f17087e8b214
+  fingerprint: d76f674f807f766d1bf37004e400491925ce9b7b1fa653788b21f17087e8b214
+  sha1: sha256:eeac23fc6140a4ec07817e69ba3bb3fa82b054ab825258476bac4450aab74383
+  packages: []
+license:
+  version: 2067230e4eadbe9cd5a71b50b002098726dee955f63752af13e9f9b67ffafd9f
+  fingerprint: 2067230e4eadbe9cd5a71b50b002098726dee955f63752af13e9f9b67ffafd9f
+  sha1: sha256:94fa1ba4b801302370f46f68f6c3748d708e0dda3e82c96d95f03f1fac39bd5a
