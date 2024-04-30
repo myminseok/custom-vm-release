@@ -51,11 +51,6 @@ Usage
 ## steps summary
 
 ```
-bosh create-release --final --version=1.0.1
-
-bosh create-release releases/custom-vm-release/custom-vm-release-1.0.1.yml \
-        --tarball ./custom-vm-release-1.0.1.tgz
-
 bosh upload-release ./custom-vm-release-1.0.1.tgz
 
 bosh update-runtime-config --name=custom-vm-release-addon ./runtimeconfig.yml
@@ -69,13 +64,12 @@ bosh -d p-isolation-segment-is1-6e18f0c63108927910d4 deploy manifest.yml
 
 ## Detailed steps
 
-### Build Final Release
-unzip this repo to any environment where bosh command is available such as opsmanager. build
+### (optional) Build Final Release
+you can use the existing release, but you can build your own release if required. unzip this repo to any environment where bosh command is available such as opsmanager.
 ```
 cd custom-vm-release
 ```
-
-then build release under current directory.
+then build release under current directory. check with existion version list from ./releases/custom-vm-release/ and pick new one.
 ```
 bosh create-release --final --version=1.0.1
 ```
@@ -91,7 +85,7 @@ now package release with specific version info.
 bosh create-release releases/custom-vm-release/custom-vm-release-1.0.1.yml \
         --tarball ./custom-vm-release-1.0.1.tgz
 ```
-
+### Upload release
 now login in to bosh env and upload the release
 ```
 bosh env
