@@ -1,0 +1,24 @@
+releases:
+- name: custom-vm-release
+  version: 0+dev.10
+
+addons:
+- name: custom-vm-release-addon
+  include:
+    deployments:
+    - p-isolation-segment-is1-6e18f0c63108927910d4
+  jobs:
+  - name: custom-vm-routing
+    release: custom-vm-release
+    properties:
+      default_gw: 192.168.0.1
+      routes:
+      - device: eth1
+        cidr: 192.4.1.0/24
+        gateway: 192.168.40.1
+      - device: eth1
+        cidr: 192.5.1.0/24
+        gateway: 192.168.40.1
+      - device: eth1
+        cidr: 192.3.1.0/24
+        gateway: 192.168.40.1

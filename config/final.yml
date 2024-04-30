@@ -1,0 +1,4 @@
+---
+blobstore:
+  provider: local
+final_name: custom-vm-release

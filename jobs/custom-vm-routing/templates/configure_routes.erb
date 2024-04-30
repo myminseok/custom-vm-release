@@ -1,0 +1,49 @@
+#!/bin/sh
+LOGFILE=/var/vcap/sys/log/custom-vm-routing/custom-vm-routing.log
+set +e
+echo "[configure_routes] reconfiguring network routes..." >> $LOGFILE
+## Remove default GW
+set_default_gw() {
+  ## Removing all default GW
+  for defautgw in $(ip route show | grep default | awk '{print $3}')
+  do
+    echo "[configure_routes] Removing old gateway $defautgw" >> $LOGFILE
+    route del default gw "$defautgw"
+    if [ $? != 0 ]; then
+      echo " ... failed " >> $LOGFILE
+    else
+      echo " ... succeed " >> $LOGFILE
+    fi
+  done
+
+  echo "[configure_routes]  Setting new gateway" >> $LOGFILE
+  route add default gw <%= p("default_gw") %>
+}
+
+
+## Remove default gateway
+#set_default_gw
+
+## Add routes
+# <% p("routes").each do |route| %>
+# ip route add <%= route["cidr"] %> via <%= route["gateway"] %> dev <%= route["device"] %>
+# <% end %>
+
+## clean up network.d config file
+<% p("routes").each do |route| %>
+  rm -rf /etc/systemd/network/10_<%= route["device"] %>.network.d
+<% end %>
+
+<% p("routes").each do |route| %>
+  CONFIG_PATH=/etc/systemd/network/10_<%= route["device"] %>.network.d/custom-network.conf
+  echo "[configure_routes] adding network route config for <%= route["cidr"] %>, <%= route["gateway"] %> $CONFIG_PATH " >> $LOGFILE
+  DIR="$(dirname "${CONFIG_PATH}")"
+  sudo mkdir -p $DIR
+  echo "[Route]" >> $CONFIG_PATH 
+  echo "Gateway=<%= route["gateway"] %>" >> $CONFIG_PATH 
+  echo "Destination=<%= route["cidr"] %>" >> $CONFIG_PATH
+<% end %>
+
+echo "[configure_routes] restarting network" >> $LOGFILE
+sudo systemctl restart systemd-networkd
+

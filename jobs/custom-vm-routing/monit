@@ -1,0 +1,4 @@
+check process custom-vm-routing with pidfile /var/vcap/sys/run/custom-vm-routing/custom-vm-routing.pid
+  start program "/var/vcap/jobs/custom-vm-routing/bin/routing_ctl start"
+  stop program "/var/vcap/jobs/custom-vm-routing/bin/routing_ctl stop"
+  group vcap

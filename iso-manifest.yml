@@ -1,0 +1,1988 @@
+addons: []
+instance_groups:
+- azs:
+  - AZ1
+  env:
+    bosh:
+      password: $6$19cd239b26e4dad2$I7LOXJc944QWb4YrinWs/HeMjehJtbxnuGWtcZrp4r3V5IetbmFnvodxlXmFEAUb60bDDpXhJBYyaliYlUCcu0
+  instances: 0
+  jobs:
+  - consumes: {}
+    name: bpm
+    provides: {}
+    release: bpm
+  - consumes:
+      nats-tls:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: nats-tls
+      routing_api:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: routing_api
+    name: gorouter
+    properties:
+      nats:
+        cert_chain: ((/opsmgr/cf-e6d5fd0144a750a9b8ca/nats_client_cert.cert_pem))
+        private_key: ((/opsmgr/cf-e6d5fd0144a750a9b8ca/nats_client_cert.private_key_pem))
+        tls_enabled: true
+      request_timeout_in_seconds: 900
+      router:
+        backends:
+          ca: |
+            -----BEGIN CERTIFICATE-----
+            MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+            CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+            MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+            dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+            2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+            PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+            jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+            5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+            v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+            CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+            MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+            AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+            BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+            WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+            leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+            sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+            J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+            bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+            -----END CERTIFICATE-----
+          cert_chain: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/routing_backends_client_cert_with_san.cert_pem))
+          enable_tls: true
+          max_conns: 500
+          private_key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/routing_backends_client_cert_with_san.private_key_pem))
+        balancing_algorithm: round-robin
+        ca_certs:
+        - null
+        - |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        - ((diego-instance-identity-intermediate-ca-2-7.ca))
+        - ((/services/tls_leaf.ca))
+        cipher_suites: ECDHE-RSA-AES128-GCM-SHA256:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+        client_ca_certs: |2+
+
+        client_cert_validation: request
+        disable_http: false
+        disable_log_forwarded_for: false
+        disable_log_source_ips: false
+        drain_timeout: 900
+        drain_wait: 20
+        enable_http2: true
+        enable_proxy: false
+        enable_ssl: true
+        extra_headers_to_log: []
+        forwarded_client_cert: always_forward
+        frontend_idle_timeout: 900
+        http_rewrite:
+          responses:
+            remove_headers: []
+        isolation_segments:
+        - is1
+        load_balancer_healthy_threshold: 20
+        logging:
+          format:
+            timestamp: rfc3339
+        max_header_kb: 48
+        max_idle_connections: 49000
+        max_tls_version: TLSv1.3
+        min_tls_version: TLSv1.2
+        only_trust_client_ca_certs: false
+        per_request_metrics_reporting: true
+        redact_query_parameters: none
+        route_services_internal_lookup: false
+        route_services_internal_server_port: 0
+        route_services_secret: ((router-route-services-secret))
+        routing_table_sharding_mode: shared-and-segments
+        secure_cookies: false
+        send_http_start_stop_client_event: true
+        send_http_start_stop_server_event: true
+        ssl_skip_validation: false
+        status:
+          enable_deprecated_varz_healthz_endpoints: true
+          password: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/isolated_router_is1/status_credentials.password))
+          tls:
+            certificate: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/routing_lb_health_cert.cert_pem))
+            key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/routing_lb_health_cert.private_key_pem))
+            port: 8443
+          user: router_status
+        sticky_session_cookie_names:
+        - JSESSIONID
+        sticky_sessions_for_auth_negotiate: false
+        tls_pem:
+        - cert_chain: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/networking_poe_ssl_certs/0/certificate.cert_pem))
+          private_key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/networking_poe_ssl_certs/0/certificate.private_key_pem))
+        tracing:
+          enable_w3c: false
+          enable_zipkin: true
+          w3c_tenant_id: null
+        write_access_logs_locally: true
+      routing_api:
+        enabled: true
+      uaa:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        clients:
+          gorouter:
+            secret: ((/opsmgr/cf-e6d5fd0144a750a9b8ca/uaa/gorouter_client_credentials.password))
+        ssl:
+          port: 8443
+    provides: {}
+    release: routing
+  - consumes:
+      doppler:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: doppler
+    name: loggregator_agent
+    properties:
+      disable_logs: false
+      disable_udp: true
+      enabled: true
+      grpc_port: 3459
+      logging:
+        format:
+          timestamp: rfc3339
+      loggregator:
+        tls:
+          agent:
+            cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.cert_pem))
+            key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.private_key_pem))
+          ca_cert: |
+            -----BEGIN CERTIFICATE-----
+            MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+            CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+            MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+            dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+            2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+            PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+            jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+            5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+            v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+            CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+            MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+            AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+            BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+            WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+            leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+            sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+            J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+            bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+            -----END CERTIFICATE-----
+      metrics:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_metrics_tls.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_metrics_tls.private_key_pem))
+        server_name: loggregator-agent-metrics
+      tags:
+        placement_tag: is1
+        product: Isolation Segment
+        system_domain: sys.lab.pcfdemo.net
+    provides: {}
+    release: loggregator-agent
+  - consumes: {}
+    name: metrics-agent
+    properties:
+      grpc:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.private_key_pem))
+      metrics:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/metrics_agent_metrics_tls.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/metrics_agent_metrics_tls.private_key_pem))
+        server_name: metrics_agent_metrics
+      scrape:
+        tls:
+          ca_cert: |
+            -----BEGIN CERTIFICATE-----
+            MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+            CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+            MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+            dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+            2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+            PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+            jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+            5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+            v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+            CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+            MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+            AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+            BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+            WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+            leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+            sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+            J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+            bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+            -----END CERTIFICATE-----
+          cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/prom_scraper_scrape_tls.cert_pem))
+          key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/prom_scraper_scrape_tls.private_key_pem))
+    provides: {}
+    release: metrics-discovery
+  - consumes:
+      nats-tls:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: nats-tls
+    name: metrics-discovery-registrar
+    properties:
+      metrics:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/metrics_discovery_metrics_tls.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/metrics_discovery_metrics_tls.private_key_pem))
+        server_name: metrics_discovery_metrics
+      nats_client:
+        cert: ((/opsmgr/cf-e6d5fd0144a750a9b8ca/nats_client_cert.cert_pem))
+        key: ((/opsmgr/cf-e6d5fd0144a750a9b8ca/nats_client_cert.private_key_pem))
+    provides: {}
+    release: metrics-discovery
+  - consumes: {}
+    name: syslog_forwarder
+    properties:
+      logging:
+        format:
+          timestamp: rfc3339
+      syslog:
+        migration:
+          disabled: true
+    provides: {}
+    release: syslog
+  - consumes:
+      binding_cache:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: binding_cache
+      cloud_controller:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: cloud_controller
+    name: loggr-syslog-agent
+    properties:
+      cache:
+        tls:
+          ca_cert: |
+            -----BEGIN CERTIFICATE-----
+            MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+            CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+            MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+            dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+            2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+            PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+            jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+            5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+            v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+            CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+            MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+            AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+            BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+            WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+            leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+            sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+            J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+            bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+            -----END CERTIFICATE-----
+          cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/scheduler_binding_cache_tls.cert_pem))
+          cn: binding-cache
+          key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/scheduler_binding_cache_tls.private_key_pem))
+      drain_ca_cert: |
+        -----BEGIN CERTIFICATE-----
+        MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+        CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+        MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+        dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+        2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+        PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+        jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+        5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+        v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+        CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+        MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+        AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+        BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+        WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+        leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+        sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+        J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+        bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+        -----END CERTIFICATE-----
+      logging:
+        format:
+          timestamp: rfc3339
+      metrics:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/syslog_agent_metrics_tls.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/syslog_agent_metrics_tls.private_key_pem))
+        server_name: syslog-agent-metrics
+      port: 3460
+      tls:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.private_key_pem))
+      warn_on_invalid_drains: false
+    provides: {}
+    release: loggregator-agent
+  - consumes: {}
+    name: loggr-forwarder-agent
+    properties:
+      logging:
+        format:
+          timestamp: rfc3339
+      metrics:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/forwarder_agent_metrics_tls.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/forwarder_agent_metrics_tls.private_key_pem))
+        server_name: forwarder-agent-metrics
+      port: 3458
+      tags:
+        placement_tag: is1
+        product: Isolation Segment
+        system_domain: sys.lab.pcfdemo.net
+      tls:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.private_key_pem))
+    provides: {}
+    release: loggregator-agent
+  - consumes:
+      cloud_controller:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: cloud_controller
+    name: loggr-udp-forwarder
+    properties:
+      logging:
+        format:
+          timestamp: rfc3339
+      loggregator:
+        tls:
+          ca: |
+            -----BEGIN CERTIFICATE-----
+            MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+            CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+            MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+            dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+            2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+            PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+            jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+            5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+            v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+            CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+            MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+            AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+            BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+            WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+            leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+            sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+            J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+            bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+            -----END CERTIFICATE-----
+          cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.cert_pem))
+          key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.private_key_pem))
+      metrics:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggr_udp_forwarder_tls.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggr_udp_forwarder_tls.private_key_pem))
+        server_name: loggr-udp-forwarder-metrics
+    provides: {}
+    release: loggregator-agent
+  - consumes:
+      loggregator:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: loggregator
+    name: prom_scraper
+    properties:
+      logging:
+        format:
+          timestamp: rfc3339
+      metrics:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/prom_scraper_metrics_tls.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/prom_scraper_metrics_tls.private_key_pem))
+        server_name: prom_scraper_metrics
+      scrape:
+        tls:
+          ca_cert: |
+            -----BEGIN CERTIFICATE-----
+            MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+            CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+            MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+            dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+            2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+            PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+            jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+            5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+            v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+            CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+            MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+            AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+            BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+            WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+            leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+            sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+            J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+            bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+            -----END CERTIFICATE-----
+          cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/prom_scraper_scrape_tls.cert_pem))
+          cn: prom_scraper
+          key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/prom_scraper_scrape_tls.private_key_pem))
+      scrape_interval: 60s
+    provides: {}
+    release: loggregator-agent
+  lifecycle: service
+  name: isolated_router_is1
+  networks:
+  - default:
+    - dns
+    - gateway
+    name: network
+  properties: {}
+  stemcell: bosh-vsphere-esxi-ubuntu-jammy-go_agent
+  update:
+    max_in_flight: 1
+    serial: true
+  vm_type: micro.ram
+- azs:
+  - AZ1
+  env:
+    bosh:
+      password: $6$05722abcda81293d$UnE3prgc69OsoZ/dyyof0LAGzHGpXN6jINNkMCiB..qcn/T7OqmrKynwHAkXW6YTNLS6NGkycTpQViRvnfzf..
+  instances: 1
+  jobs:
+  - consumes: {}
+    name: rep
+    properties:
+      bpm:
+        enabled: true
+      containers:
+        graceful_shutdown_interval_in_seconds: 10
+        proxy:
+          additional_memory_allocation_mb: 32
+          enable_http2: true
+          enabled: true
+        set_cpu_weight: true
+        trusted_ca_certificates:
+        - ((diego-instance-identity-intermediate-ca-2-7.ca))
+        - |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        - |-
+          -----BEGIN CERTIFICATE-----
+          MIIDRzCCAi+gAwIBAgIUNsR4Tdn2TN3RpGAIrgPpXhyAk4UwDQYJKoZIhvcNAQEL
+          BQAwMzEfMB0GA1UEAxMWb3BzbWdyLXNlcnZpY2VzLXRscy1jYTEQMA4GA1UEChMH
+          UGl2b3RhbDAeFw0yNDAzMTgwODE0NDZaFw0yOTAzMTcwODE0NDZaMDMxHzAdBgNV
+          BAMTFm9wc21nci1zZXJ2aWNlcy10bHMtY2ExEDAOBgNVBAoTB1Bpdm90YWwwggEi
+          MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDi2L9vZN0i8E7sqTOGOX5P/PdM
+          rbo40foD2Rmx/CJU9BbiW61SDZOAoqoTgoiwBGOrrSYmmE0g7ZZfanTd8Ev2sS6U
+          aHywDhvutk2aBZvQCcMN6H2vHLULTcR/X9aWbL/kmNDZSQAq+WRJh0q/yspOrE/B
+          s5fIOvGNk766kcNGNOACa7hFAFs8dY82WzNcNdh2ZKwknUMlHybk3RYgb1oSZuBb
+          uMOE9o+9e5LGis2AJq21i+4Xk1JH3hs5Ffak9p4YfYgOQa+OcQ9sUWKO8jXX2R5L
+          20Wn3FKMBgE8/JGc8obiKByPulKWXtYsCGj46sF+9S1vtYBtEb2RTWLxMSZtAgMB
+          AAGjUzBRMB0GA1UdDgQWBBRMYVtxuYoP2wa5X3lOLK8dPUoUajAfBgNVHSMEGDAW
+          gBRMYVtxuYoP2wa5X3lOLK8dPUoUajAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3
+          DQEBCwUAA4IBAQDapj87UihqzVFkaKhRkeCIyVHcK657gP+/VKNLWvCP+MoOrPrW
+          SKdgb22rF9eXTDHVnWomnFfp60d4l32LujisoIyhy4etZ7e6z6/r+K0KhrAr9vxw
+          RwMiAXlK1Jxda2BMZaG7b4woIHpdNWgWeZSecAN3CjVVXqATBIl46FPwfsQKwM+4
+          0HYWcxouIRvxShixVkPzRfRGJgIFaaxk3oPEEfaQO/zg12Ewsx+mEESaxBfr7uZE
+          QT//sC3fTLSdnC1YBIEApPaY1UUBNgzHJnZzjF1cM6VyWGjUkzNswulmv9Yjmggz
+          blhGUz23e8HD5gnbtq5OyOprBYTFYv9Q4Z36
+          -----END CERTIFICATE-----
+      diego:
+        executor:
+          disk_capacity_mb: null
+          instance_identity_ca_cert: ((diego-instance-identity-intermediate-ca-2-7.certificate))
+          instance_identity_key: ((diego-instance-identity-intermediate-ca-2-7.private_key))
+          max_log_lines_per_second: 0
+          memory_capacity_mb: null
+        rep:
+          advertise_preference_for_instance_address: false
+          placement_tags:
+          - is1
+          preloaded_rootfses:
+          - cflinuxfs3:/var/vcap/packages/cflinuxfs3/rootfs.tar
+          - cflinuxfs4:/var/vcap/packages/cflinuxfs4/rootfs.tar
+          use_azure_fault_domains: true
+      enable_declarative_healthcheck: true
+      logging:
+        format:
+          timestamp: rfc3339
+      loggregator:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_client_cert.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_client_cert.private_key_pem))
+        use_v2_api: true
+      tls:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/rep_server_cert_v2.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/rep_server_cert_v2.private_key_pem))
+    provides: {}
+    release: diego
+  - consumes:
+      nats-tls:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: nats-tls
+    name: route_emitter
+    properties:
+      bpm:
+        enabled: true
+      diego:
+        route_emitter:
+          bbs:
+            ca_cert: |
+              -----BEGIN CERTIFICATE-----
+              MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+              CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+              MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+              dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+              2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+              PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+              jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+              5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+              v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+              CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+              MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+              AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+              BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+              WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+              leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+              sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+              J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+              bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+              -----END CERTIFICATE-----
+            client_cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/bbs_client_cert.cert_pem))
+            client_key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/bbs_client_cert.private_key_pem))
+          local_mode: true
+          nats:
+            tls:
+              client_cert: ((/opsmgr/cf-e6d5fd0144a750a9b8ca/nats_client_cert.cert_pem))
+              client_key: ((/opsmgr/cf-e6d5fd0144a750a9b8ca/nats_client_cert.private_key_pem))
+              enabled: true
+              hostname: nats.service.cf.internal
+      internal_routes:
+        enabled: true
+      logging:
+        format:
+          timestamp: rfc3339
+      loggregator:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_client_cert.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_client_cert.private_key_pem))
+        use_v2_api: true
+      register_direct_instance_routes: false
+      tcp:
+        enabled: true
+      uaa:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        client_name: tcp_emitter
+        client_secret: ((/opsmgr/cf-e6d5fd0144a750a9b8ca/uaa/tcp_emitter_credentials.password))
+    provides: {}
+    release: diego
+  - consumes: {}
+    name: cfdot
+    properties:
+      tls:
+        ca_certificate: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        certificate: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/bbs_client_cert.cert_pem))
+        private_key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/bbs_client_cert.private_key_pem))
+    provides: {}
+    release: diego
+  - consumes: {}
+    name: garden
+    properties:
+      garden:
+        cleanup_process_dirs_on_wait: true
+        containerd_mode: true
+        cpu_throttling: true
+        debug_listen_address: 127.0.0.1:17019
+        deny_networks:
+        - 0.0.0.0/0
+        destroy_containers_on_start: true
+        http_proxy: null
+        https_proxy: null
+        iptables_bin_dir: /sbin
+        network_plugin: /var/vcap/packages/runc-cni/bin/garden-external-networker
+        network_plugin_extra_args:
+        - --configFile=/var/vcap/jobs/garden-cni/config/adapter.json
+        no_proxy: null
+      grootfs:
+        insecure_docker_registry_list: []
+        reserved_space_for_other_jobs_in_mb: 15360
+        tls:
+          ca_cert: |
+            -----BEGIN CERTIFICATE-----
+            MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+            CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+            MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+            dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+            2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+            PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+            jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+            5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+            v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+            CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+            MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+            AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+            BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+            WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+            leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+            sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+            J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+            bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+            -----END CERTIFICATE-----
+          cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/rep_server_cert.cert_pem))
+          key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/rep_server_cert.private_key_pem))
+      logging:
+        format:
+          timestamp: rfc3339
+    provides: {}
+    release: garden-runc
+  - consumes: {}
+    name: cflinuxfs3-rootfs-setup
+    properties:
+      cflinuxfs3-rootfs:
+        trusted_certs: |
+          ((diego-instance-identity-intermediate-ca-2-7.ca))
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+
+          -----BEGIN CERTIFICATE-----
+          MIIDRzCCAi+gAwIBAgIUNsR4Tdn2TN3RpGAIrgPpXhyAk4UwDQYJKoZIhvcNAQEL
+          BQAwMzEfMB0GA1UEAxMWb3BzbWdyLXNlcnZpY2VzLXRscy1jYTEQMA4GA1UEChMH
+          UGl2b3RhbDAeFw0yNDAzMTgwODE0NDZaFw0yOTAzMTcwODE0NDZaMDMxHzAdBgNV
+          BAMTFm9wc21nci1zZXJ2aWNlcy10bHMtY2ExEDAOBgNVBAoTB1Bpdm90YWwwggEi
+          MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDi2L9vZN0i8E7sqTOGOX5P/PdM
+          rbo40foD2Rmx/CJU9BbiW61SDZOAoqoTgoiwBGOrrSYmmE0g7ZZfanTd8Ev2sS6U
+          aHywDhvutk2aBZvQCcMN6H2vHLULTcR/X9aWbL/kmNDZSQAq+WRJh0q/yspOrE/B
+          s5fIOvGNk766kcNGNOACa7hFAFs8dY82WzNcNdh2ZKwknUMlHybk3RYgb1oSZuBb
+          uMOE9o+9e5LGis2AJq21i+4Xk1JH3hs5Ffak9p4YfYgOQa+OcQ9sUWKO8jXX2R5L
+          20Wn3FKMBgE8/JGc8obiKByPulKWXtYsCGj46sF+9S1vtYBtEb2RTWLxMSZtAgMB
+          AAGjUzBRMB0GA1UdDgQWBBRMYVtxuYoP2wa5X3lOLK8dPUoUajAfBgNVHSMEGDAW
+          gBRMYVtxuYoP2wa5X3lOLK8dPUoUajAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3
+          DQEBCwUAA4IBAQDapj87UihqzVFkaKhRkeCIyVHcK657gP+/VKNLWvCP+MoOrPrW
+          SKdgb22rF9eXTDHVnWomnFfp60d4l32LujisoIyhy4etZ7e6z6/r+K0KhrAr9vxw
+          RwMiAXlK1Jxda2BMZaG7b4woIHpdNWgWeZSecAN3CjVVXqATBIl46FPwfsQKwM+4
+          0HYWcxouIRvxShixVkPzRfRGJgIFaaxk3oPEEfaQO/zg12Ewsx+mEESaxBfr7uZE
+          QT//sC3fTLSdnC1YBIEApPaY1UUBNgzHJnZzjF1cM6VyWGjUkzNswulmv9Yjmggz
+          blhGUz23e8HD5gnbtq5OyOprBYTFYv9Q4Z36
+          -----END CERTIFICATE-----
+          ((/services/tls_leaf.ca))
+    provides: {}
+    release: cflinuxfs3
+  - consumes: {}
+    name: cflinuxfs4-rootfs-setup
+    properties:
+      cflinuxfs4-rootfs:
+        trusted_certs: |
+          ((diego-instance-identity-intermediate-ca-2-7.ca))
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+
+          -----BEGIN CERTIFICATE-----
+          MIIDRzCCAi+gAwIBAgIUNsR4Tdn2TN3RpGAIrgPpXhyAk4UwDQYJKoZIhvcNAQEL
+          BQAwMzEfMB0GA1UEAxMWb3BzbWdyLXNlcnZpY2VzLXRscy1jYTEQMA4GA1UEChMH
+          UGl2b3RhbDAeFw0yNDAzMTgwODE0NDZaFw0yOTAzMTcwODE0NDZaMDMxHzAdBgNV
+          BAMTFm9wc21nci1zZXJ2aWNlcy10bHMtY2ExEDAOBgNVBAoTB1Bpdm90YWwwggEi
+          MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDi2L9vZN0i8E7sqTOGOX5P/PdM
+          rbo40foD2Rmx/CJU9BbiW61SDZOAoqoTgoiwBGOrrSYmmE0g7ZZfanTd8Ev2sS6U
+          aHywDhvutk2aBZvQCcMN6H2vHLULTcR/X9aWbL/kmNDZSQAq+WRJh0q/yspOrE/B
+          s5fIOvGNk766kcNGNOACa7hFAFs8dY82WzNcNdh2ZKwknUMlHybk3RYgb1oSZuBb
+          uMOE9o+9e5LGis2AJq21i+4Xk1JH3hs5Ffak9p4YfYgOQa+OcQ9sUWKO8jXX2R5L
+          20Wn3FKMBgE8/JGc8obiKByPulKWXtYsCGj46sF+9S1vtYBtEb2RTWLxMSZtAgMB
+          AAGjUzBRMB0GA1UdDgQWBBRMYVtxuYoP2wa5X3lOLK8dPUoUajAfBgNVHSMEGDAW
+          gBRMYVtxuYoP2wa5X3lOLK8dPUoUajAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3
+          DQEBCwUAA4IBAQDapj87UihqzVFkaKhRkeCIyVHcK657gP+/VKNLWvCP+MoOrPrW
+          SKdgb22rF9eXTDHVnWomnFfp60d4l32LujisoIyhy4etZ7e6z6/r+K0KhrAr9vxw
+          RwMiAXlK1Jxda2BMZaG7b4woIHpdNWgWeZSecAN3CjVVXqATBIl46FPwfsQKwM+4
+          0HYWcxouIRvxShixVkPzRfRGJgIFaaxk3oPEEfaQO/zg12Ewsx+mEESaxBfr7uZE
+          QT//sC3fTLSdnC1YBIEApPaY1UUBNgzHJnZzjF1cM6VyWGjUkzNswulmv9Yjmggz
+          blhGUz23e8HD5gnbtq5OyOprBYTFYv9Q4Z36
+          -----END CERTIFICATE-----
+          ((/services/tls_leaf.ca))
+    provides: {}
+    release: cflinuxfs4
+  - consumes:
+      doppler:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: doppler
+    name: loggregator_agent
+    properties:
+      disable_logs: false
+      disable_udp: true
+      enabled: true
+      grpc_port: 3459
+      logging:
+        format:
+          timestamp: rfc3339
+      loggregator:
+        tls:
+          agent:
+            cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.cert_pem))
+            key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.private_key_pem))
+          ca_cert: |
+            -----BEGIN CERTIFICATE-----
+            MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+            CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+            MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+            dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+            2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+            PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+            jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+            5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+            v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+            CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+            MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+            AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+            BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+            WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+            leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+            sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+            J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+            bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+            -----END CERTIFICATE-----
+      metrics:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_metrics_tls.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_metrics_tls.private_key_pem))
+        server_name: loggregator-agent-metrics
+      tags:
+        placement_tag: is1
+        product: Isolation Segment
+        system_domain: sys.lab.pcfdemo.net
+    provides: {}
+    release: loggregator-agent
+  - consumes: {}
+    name: metrics-agent
+    properties:
+      grpc:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.private_key_pem))
+      metrics:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/metrics_agent_metrics_tls.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/metrics_agent_metrics_tls.private_key_pem))
+        server_name: metrics_agent_metrics
+      scrape:
+        tls:
+          ca_cert: |
+            -----BEGIN CERTIFICATE-----
+            MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+            CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+            MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+            dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+            2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+            PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+            jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+            5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+            v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+            CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+            MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+            AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+            BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+            WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+            leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+            sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+            J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+            bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+            -----END CERTIFICATE-----
+          cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/prom_scraper_scrape_tls.cert_pem))
+          key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/prom_scraper_scrape_tls.private_key_pem))
+    provides: {}
+    release: metrics-discovery
+  - consumes:
+      nats-tls:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: nats-tls
+    name: metrics-discovery-registrar
+    properties:
+      metrics:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/metrics_discovery_metrics_tls.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/metrics_discovery_metrics_tls.private_key_pem))
+        server_name: metrics_discovery_metrics
+      nats_client:
+        cert: ((/opsmgr/cf-e6d5fd0144a750a9b8ca/nats_client_cert.cert_pem))
+        key: ((/opsmgr/cf-e6d5fd0144a750a9b8ca/nats_client_cert.private_key_pem))
+    provides: {}
+    release: metrics-discovery
+  - consumes:
+      cf_network:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: cf_network
+    name: silk-cni
+    properties:
+      disable: false
+      dns_servers:
+      - 169.254.0.2
+      host_tcp_services: []
+      iptables_accepted_udp_logs_per_sec: 100
+      iptables_denied_logs_per_sec: 1
+      iptables_logging: false
+      mtu: 1454
+    provides: {}
+    release: silk
+  - consumes: {}
+    name: silk-datastore-syncer
+    properties:
+      disable: false
+    provides: {}
+    release: silk
+  - consumes: {}
+    name: bpm
+    provides: {}
+    release: bpm
+  - consumes:
+      cf_network:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: cf_network
+    name: silk-daemon
+    properties:
+      ca_cert: |
+        -----BEGIN CERTIFICATE-----
+        MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+        CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+        MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+        dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+        2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+        PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+        jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+        5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+        v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+        CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+        MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+        AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+        BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+        WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+        leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+        sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+        J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+        bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+        -----END CERTIFICATE-----
+      client_cert: ((/opsmgr/cf-e6d5fd0144a750a9b8ca/diego_database/silk_daemon_client_cert.cert_pem))
+      client_key: ((/opsmgr/cf-e6d5fd0144a750a9b8ca/diego_database/silk_daemon_client_cert.private_key_pem))
+      disable: false
+      logging:
+        format:
+          timestamp: rfc3339
+      vtep_port: 4789
+    provides: {}
+    release: silk
+  - consumes:
+      cloud_controller_container_networking_info:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: cloud_controller_container_networking_info
+    name: garden-cni
+    properties:
+      cni_config_dir: /var/vcap/jobs/silk-cni/config/cni
+      cni_plugin_dir: /var/vcap/packages/silk-cni/bin
+      search_domains: []
+    provides: {}
+    release: cf-networking
+  - consumes: {}
+    name: netmon
+    properties:
+      disable: false
+      telemetry_enabled: true
+      telemetry_interval: 86400
+    provides: {}
+    release: silk
+  - consumes:
+      cf_network:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: cf_network
+    name: vxlan-policy-agent
+    properties:
+      asg_poll_interval_seconds: 60
+      ca_cert: |
+        -----BEGIN CERTIFICATE-----
+        MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+        CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+        MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+        dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+        2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+        PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+        jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+        5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+        v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+        CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+        MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+        AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+        BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+        WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+        leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+        sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+        J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+        bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+        -----END CERTIFICATE-----
+      client_cert: ((/opsmgr/cf-e6d5fd0144a750a9b8ca/network_policy_agent_cert.cert_pem))
+      client_key: ((/opsmgr/cf-e6d5fd0144a750a9b8ca/network_policy_agent_cert.private_key_pem))
+      disable: false
+      disable_container_network_policy: false
+      enable_asg_syncing: true
+      iptables_accepted_udp_logs_per_sec: 100
+      iptables_logging: false
+      loggregator:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/cf-e6d5fd0144a750a9b8ca/loggregator_client_cert.cert_pem))
+        key: ((/opsmgr/cf-e6d5fd0144a750a9b8ca/loggregator_client_cert.private_key_pem))
+        use_v2_api: true
+      policy_poll_interval_seconds: 5
+      policy_server:
+        hostname: network-policy-server.service.cf.internal
+    provides: {}
+    release: silk
+  - consumes: {}
+    name: mapfs
+    properties:
+      disable: false
+    provides: {}
+    release: mapfs
+  - consumes: {}
+    name: nfsv3driver
+    properties:
+      nfsv3driver:
+        disable: false
+        ldap_ca_cert: null
+        ldap_host: null
+        ldap_port: null
+        ldap_svc_password: null
+        ldap_svc_user: null
+        ldap_user_fqdn: null
+    provides: {}
+    release: nfs-volume
+  - consumes: {}
+    name: smbdriver
+    properties:
+      disable: false
+      force_nodfs: false
+      force_noserverino: false
+    provides: {}
+    release: smb-volume
+  - consumes: {}
+    name: syslog_forwarder
+    properties:
+      logging:
+        format:
+          timestamp: rfc3339
+      syslog:
+        migration:
+          disabled: true
+    provides: {}
+    release: syslog
+  - consumes:
+      binding_cache:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: binding_cache
+      cloud_controller:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: cloud_controller
+    name: loggr-syslog-agent
+    properties:
+      cache:
+        tls:
+          ca_cert: |
+            -----BEGIN CERTIFICATE-----
+            MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+            CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+            MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+            dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+            2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+            PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+            jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+            5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+            v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+            CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+            MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+            AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+            BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+            WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+            leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+            sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+            J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+            bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+            -----END CERTIFICATE-----
+          cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/scheduler_binding_cache_tls.cert_pem))
+          cn: binding-cache
+          key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/scheduler_binding_cache_tls.private_key_pem))
+      drain_ca_cert: |
+        -----BEGIN CERTIFICATE-----
+        MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+        CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+        MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+        dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+        2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+        PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+        jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+        5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+        v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+        CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+        MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+        AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+        BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+        WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+        leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+        sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+        J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+        bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+        -----END CERTIFICATE-----
+      logging:
+        format:
+          timestamp: rfc3339
+      metrics:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/syslog_agent_metrics_tls.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/syslog_agent_metrics_tls.private_key_pem))
+        server_name: syslog-agent-metrics
+      port: 3460
+      tls:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.private_key_pem))
+      warn_on_invalid_drains: false
+    provides: {}
+    release: loggregator-agent
+  - consumes: {}
+    name: loggr-forwarder-agent
+    properties:
+      logging:
+        format:
+          timestamp: rfc3339
+      metrics:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/forwarder_agent_metrics_tls.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/forwarder_agent_metrics_tls.private_key_pem))
+        server_name: forwarder-agent-metrics
+      port: 3458
+      tags:
+        placement_tag: is1
+        product: Isolation Segment
+        system_domain: sys.lab.pcfdemo.net
+      tls:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.private_key_pem))
+    provides: {}
+    release: loggregator-agent
+  - consumes:
+      cloud_controller:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: cloud_controller
+    name: loggr-udp-forwarder
+    properties:
+      logging:
+        format:
+          timestamp: rfc3339
+      loggregator:
+        tls:
+          ca: |
+            -----BEGIN CERTIFICATE-----
+            MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+            CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+            MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+            dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+            2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+            PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+            jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+            5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+            v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+            CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+            MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+            AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+            BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+            WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+            leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+            sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+            J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+            bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+            -----END CERTIFICATE-----
+          cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.cert_pem))
+          key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggregator_agent_tls_cert.private_key_pem))
+      metrics:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggr_udp_forwarder_tls.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/loggr_udp_forwarder_tls.private_key_pem))
+        server_name: loggr-udp-forwarder-metrics
+    provides: {}
+    release: loggregator-agent
+  - consumes:
+      loggregator:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: loggregator
+    name: prom_scraper
+    properties:
+      logging:
+        format:
+          timestamp: rfc3339
+      metrics:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+          MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+          2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+          PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+          jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+          5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+          v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+          CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+          MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+          AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+          BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+          WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+          leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+          sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+          J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+          bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+          -----END CERTIFICATE-----
+        cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/prom_scraper_metrics_tls.cert_pem))
+        key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/prom_scraper_metrics_tls.private_key_pem))
+        server_name: prom_scraper_metrics
+      scrape:
+        tls:
+          ca_cert: |
+            -----BEGIN CERTIFICATE-----
+            MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+            CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+            MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+            dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+            2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+            PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+            jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+            5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+            v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+            CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+            MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+            AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+            BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+            WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+            leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+            sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+            J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+            bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+            -----END CERTIFICATE-----
+          cert: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/prom_scraper_scrape_tls.cert_pem))
+          cn: prom_scraper
+          key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/prom_scraper_scrape_tls.private_key_pem))
+      scrape_interval: 60s
+    provides: {}
+    release: loggregator-agent
+  - consumes:
+      cloud_controller_container_networking_info:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: cloud_controller_container_networking_info
+      service-discovery-controller:
+        deployment: cf-e6d5fd0144a750a9b8ca
+        from: service-discovery-controller
+    name: bosh-dns-adapter
+    properties:
+      dnshttps:
+        client:
+          tls:
+            certificate: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/service_discovery_client_tls.cert_pem))
+            private_key: ((/opsmgr/p-isolation-segment-is1-6e18f0c63108927910d4/service_discovery_client_tls.private_key_pem))
+        server:
+          ca: |
+            -----BEGIN CERTIFICATE-----
+            MIIDUTCCAjmgAwIBAgIVAMa1Gnn0asbNAv/sUW/xBIAvimdAMA0GCSqGSIb3DQEB
+            CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTI0MDMxNzA3
+            MDMyNFoXDTI4MDMxNzA3MDMyNFowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+            dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCyzPWe2DzoJodZ
+            2Eihpd0eaMEyEGFJ3YRd9YrlF4QVkPGrWEMM6bOlWAmKein93txNAHESQJpcfWnx
+            PJMluHuUNkf7Meql/pg0vW9g3tNc3PxgC2ZyoZxklEKAqeblHKTVztoZpsj315YH
+            jzn24jS6r16TjKPcgFS50P42K0UW/YFN884oDgHZx8zAfq0MFFWHWtirVshGeHhZ
+            5hVj66LBJZ7+HI8E9O7os08Kj04cvxaE8nb/G2SfYsfIt/5+lSYr6UO6QlHg+/7v
+            v1uRC8n9cJwdkM/3DmaxQUV7O71VWaOlO2qSxnPgf01OtMc7+1/tFEULJa/Z+Fr9
+            CmSTvOslAgMBAAGjgYMwgYAwHQYDVR0OBBYEFFSo9HGy4JeXgENgZ5mnsNQ0U1DC
+            MB8GA1UdIwQYMBaAFFSo9HGy4JeXgENgZ5mnsNQ0U1DCMB0GA1UdJQQWMBQGCCsG
+            AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+            BjANBgkqhkiG9w0BAQsFAAOCAQEAk1UNOVQ3p6wYUj0Q6RF0BjbM+eo52MeHZ9Ar
+            WcRAAqNrr0OWsF3/k3hAChb2arNz/RzQpn/wRZdui51eftX2nkv4pa/DZfyeJzkU
+            leMIYrDwjt7BBzGxarF+LaSXW8B+MKv6e3uFF9LSeH/bciirMGZ9qP7iMW3OEFEU
+            sup8vnuz3VD6lSTgJlYFfT3hTvv2cfq32eR9ZnMQoAsHd9TIRzgs7M4FpRSrShgq
+            J4E5CzI6D4FKtvAq+U1tuy6CuWMdj2GN2GW9tCUkH1h/r75mKFL2BTQJUpmdDXsZ
+            bemBGEjic1ZSLhyXkqoHyM7JkN0/Ny1l5FqnZDh51tAxY5q1pw==
+            -----END CERTIFICATE-----
+      internal_domains:
+      - apps.internal
+    provides: {}
+    release: cf-networking
+  - consumes: {}
+    name: iptables-logger
+    properties:
+      logging:
+        format:
+          timestamp: rfc3339
+    provides: {}
+    release: silk
+  - consumes: {}
+    name: smoke_tests_isolation
+    properties:
+      bpm:
+        enabled: true
+      smoke_tests:
+        api: https://api.sys.lab.pcfdemo.net
+        apps_domain: apps.lab.pcfdemo.net
+        cf_dial_timeout_in_seconds: null
+        isolation_segment_domain: null
+        isolation_segment_name: is1
+        organization: system
+        pas_routers_isolated_routing: accept_all
+        pas_routers_isolated_routing_segments: []
+        password: ((/opsmgr/cf-e6d5fd0144a750a9b8ca/uaa/run_smoke_tests_credentials.password))
+        space: CF_SMOKE_TEST_SPACE
+        user: smoke_tests
+    provides: {}
+    release: smoke-tests
+  - consumes: {}
+    name: sku-name-indicator
+    properties:
+      sku_name: TAS
+    provides: {}
+    release: count-cores-indicator
+  - consumes: {}
+    name: cf-cli-8-linux
+    provides: {}
+    release: cf-cli
+  lifecycle: service
+  name: isolated_diego_cell_is1
+  networks:
+  - default:
+    - dns
+    - gateway
+    name: network
+  - name: tkg-mgmt-pg
+  properties: {}
+  stemcell: bosh-vsphere-esxi-ubuntu-jammy-go_agent
+  update:
+    max_in_flight: 1
+  vm_type: small.disk
+memo:
+  comment: This entire section is just informational. It is NOT used by BOSH.
+  ops_manager:
+    overrides: []
+name: p-isolation-segment-is1-6e18f0c63108927910d4
+releases:
+- exported_from:
+  - os: ubuntu-jammy
+    version: "1.390"
+  name: bpm
+  url: file:///var/tempest/releases/bpm-1.2.16-ubuntu-jammy-1.390.tgz
+  version: 1.2.16
+- exported_from:
+  - os: ubuntu-jammy
+    version: "1.390"
+  name: cf-networking
+  url: file:///var/tempest/releases/cf-networking-3.43.0-ubuntu-jammy-1.390.tgz
+  version: 3.43.0
+- exported_from:
+  - os: ubuntu-jammy
+    version: "1.390"
+  name: cflinuxfs3
+  url: file:///var/tempest/releases/cflinuxfs3-0.386.0-ubuntu-jammy-1.390.tgz
+  version: 0.386.0
+- exported_from:
+  - os: ubuntu-jammy
+    version: "1.390"
+  name: cflinuxfs4
+  url: file:///var/tempest/releases/cflinuxfs4-1.81.0-ubuntu-jammy-1.390.tgz
+  version: 1.81.0
+- name: count-cores-indicator
+  url: file:///var/tempest/releases/count-cores-indicator-2.0.0-ubuntu-jammy-1.390.tgz
+  version: 2.0.0
+- exported_from:
+  - os: ubuntu-jammy
+    version: "1.390"
+  name: diego
+  url: file:///var/tempest/releases/diego-2.95.0-ubuntu-jammy-1.390.tgz
+  version: 2.95.0
+- exported_from:
+  - os: ubuntu-jammy
+    version: "1.390"
+  name: garden-runc
+  url: file:///var/tempest/releases/garden-runc-1.50.0-ubuntu-jammy-1.390.tgz
+  version: 1.50.0
+- exported_from:
+  - os: ubuntu-jammy
+    version: "1.390"
+  name: loggregator-agent
+  url: file:///var/tempest/releases/loggregator-agent-7.7.4-ubuntu-jammy-1.390.tgz
+  version: 7.7.4
+- exported_from:
+  - os: ubuntu-jammy
+    version: "1.390"
+  name: metrics-discovery
+  url: file:///var/tempest/releases/metrics-discovery-3.2.22-ubuntu-jammy-1.390.tgz
+  version: 3.2.22
+- exported_from:
+  - os: ubuntu-jammy
+    version: "1.390"
+  name: mapfs
+  url: file:///var/tempest/releases/mapfs-1.2.59-ubuntu-jammy-1.390.tgz
+  version: 1.2.59
+- exported_from:
+  - os: ubuntu-jammy
+    version: "1.390"
+  name: nfs-volume
+  url: file:///var/tempest/releases/nfs-volume-7.1.55-ubuntu-jammy-1.390.tgz
+  version: 7.1.55
+- exported_from:
+  - os: ubuntu-jammy
+    version: "1.390"
+  name: routing
+  url: file:///var/tempest/releases/routing-0.292.0-ubuntu-jammy-1.390.tgz
+  version: 0.292.0
+- exported_from:
+  - os: ubuntu-jammy
+    version: "1.390"
+  name: silk
+  url: file:///var/tempest/releases/silk-3.43.0-ubuntu-jammy-1.390.tgz
+  version: 3.43.0
+- exported_from:
+  - os: ubuntu-jammy
+    version: "1.390"
+  name: smb-volume
+  url: file:///var/tempest/releases/smb-volume-3.1.57-ubuntu-jammy-1.390.tgz
+  version: 3.1.57
+- exported_from:
+  - os: ubuntu-jammy
+    version: "1.390"
+  name: smoke-tests
+  url: file:///var/tempest/releases/smoke-tests-4.8.5-ubuntu-jammy-1.390.tgz
+  version: 4.8.5
+- exported_from:
+  - os: ubuntu-jammy
+    version: "1.390"
+  name: syslog
+  url: file:///var/tempest/releases/syslog-12.2.2-ubuntu-jammy-1.390.tgz
+  version: 12.2.2
+- exported_from:
+  - os: ubuntu-jammy
+    version: "1.390"
+  name: cf-cli
+  url: file:///var/tempest/releases/cf-cli-1.60.0-ubuntu-jammy-1.390.tgz
+  version: 1.60.0
+stemcells:
+- alias: bosh-vsphere-esxi-ubuntu-jammy-go_agent
+  name: bosh-vsphere-esxi-ubuntu-jammy-go_agent
+  os: ubuntu-jammy
+  version: "1.360"
+update:
+  canaries: 1
+  canary_watch_time: 30000-300000
+  max_errors: 2
+  max_in_flight: 1
+  serial: false
+  update_watch_time: 30000-300000
+variables:
+- name: router-route-services-secret
+  type: password
+- name: /cf/diego-instance-identity-root-ca-2-6
+  options:
+    common_name: Diego Instance Identity Root CA
+    duration: 1095
+    is_ca: true
+  type: certificate
+- name: diego-instance-identity-intermediate-ca-2-7
+  options:
+    ca: /cf/diego-instance-identity-root-ca-2-6
+    common_name: Diego Instance Identity Intermediate CA
+    duration: 730
+    is_ca: true
+    key_usage:
+    - key_cert_sign
+  type: certificate
+- name: /services/tls_leaf
+  options:
+    alternative_names:
+    - services-tls-leaf
+    ca: /services/tls_ca
+    common_name: services-tls-leaf
+  type: certificate
+  update_mode: converge

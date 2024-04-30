@@ -1,0 +1,24 @@
+---
+name: custom-vm-routing
+
+templates:
+  routing_ctl.erb: bin/routing_ctl
+  configure_routes.erb: bin/configure_routes
+  monitor_routes.erb: bin/monitor_routes
+
+packages: []
+
+properties:
+  default_gw:
+    description: override default gateway
+    default: ""
+  routes:
+    description: Route to be added propertie are subnet netmask gateway 
+    example:
+      routes:
+      - device: eth1
+        cidr: 192.4.1.0/24
+        gateway: 192.168.40.1
+      - device: eth1
+        cidr: 192.2.1.0/24
+        gateway: 192.168.40.1

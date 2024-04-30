@@ -1,0 +1,24 @@
+#!/bin/sh
+LOGFILE=/var/vcap/sys/log/custom-vm-routing/custom-vm-routing.log
+echo "$$" > /var/vcap/sys/run/custom-vm-routing/custom-vm-routing.pid
+echo "[monitor_routes]  start monitoring network routes " >> $LOGFILE
+
+while true; do
+  <% p("routes").each do |route| %>
+    CONFIG_PATH=/etc/systemd/network/10_<%= route["device"] %>.network.d/custom-network.conf
+    if [ ! -f $CONFIG_PATH ]; then
+      echo "[monitor_routes] WARNING: missing route config file: $CONFIG_PATH" >> $LOGFILE
+      /var/vcap/jobs/custom-vm-routing/bin/configure_routes
+      sleep 10;
+    fi
+
+    ## comment out as preferred to checking file.
+    # CMD="ip route show <%= route["cidr"] %> via <%= route["gateway"] %> dev <%= route["device"] %>"
+    # if [ $( $CMD | wc -l) -eq 0 ]; then
+    #   echo "WARNING: missing route config: $CMD"
+    #   /var/vcap/jobs/custom-vm-routing/bin/configure_routes
+    # fi
+  <% end %>
+  sleep 5;
+done
+

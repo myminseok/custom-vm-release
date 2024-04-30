@@ -1,0 +1,21 @@
+#!/bin/sh
+set +e
+cleanup_process() {
+  killall monitor_routes
+  rm -rf /var/vcap/sys/run/custom-vm-routing/custom-vm-routing.pid
+}
+
+case "$1" in
+  start)
+    cleanup_process
+    /var/vcap/jobs/custom-vm-routing/bin/monitor_routes &
+    echo "$$" > /var/vcap/sys/run/custom-vm-routing/custom-vm-routing.pid
+    ;;
+
+  stop)
+    cleanup_process
+    ;;
+
+esac
+
+exit 0
