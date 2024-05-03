@@ -1,15 +1,17 @@
 Custom VM bosh release for customizing routes
 ===============
-this document explains how to customize network route config using runtime config and custom bosh release.
 
-this release supports keeping the custom routes in case of:
+if you customized the VM network (especially under /etc/systemd/network or route) via runtime config(using os-conf release), it will be persisted in case of:
 - vm is provisioned
 - vm is rebooted
-- if director vm is recreated and all customer network on bosh deployed vm will be reset by bosh-agent. this release can persist the custom network routes
-- deleting the custom network config file /etc/systemd/network/10_ethX_network.d/custom-network.conf
 
-all required custom config will be set in bosh runtime-config file. 
+but it will be lost in case of follwing:
+- if director vm is recreated, then bosh-agent will reset the all custom network config.
+- if the custom network config files under /etc/systemd/network are deleted by any reason, it will not be restored until the os-conf job is executed via rebooting or recreating the VM.
 
+this document explains how to customize network route config and preserve them using runtime config and custom bosh release.
+
+eventually, all required custom config will be in bosh runtime-config file: 
 ```
 addons:
 - name: custom-vm-release-addon
