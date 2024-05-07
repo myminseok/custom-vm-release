@@ -1,3 +1,7 @@
+WARNING
+===============
+this repo is not supported by VMware
+
 Custom VM bosh release for customizing routes
 ===============
 
