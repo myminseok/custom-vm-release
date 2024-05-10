@@ -10,7 +10,7 @@ packages: []
 
 properties:
   default_gw:
-    description: This feature is disabled at the moment. required value. override default gateway
+    description: This feature is disabled at the moment. override default gateway
     default: ""
   check_internal: 
     description: interval in second to see if custom route config is exists under /etc/systemd/network.

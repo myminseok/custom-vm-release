@@ -11,7 +11,7 @@ addons:
   - name: custom-vm-routing
     release: custom-vm-release
     properties:
-      #default_gw: 192.168.0.1
+      default_gw: 192.168.0.1
       check_internal: 5
       sleep_after_updates: 10 
       routes:
