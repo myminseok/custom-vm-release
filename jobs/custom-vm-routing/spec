@@ -10,10 +10,17 @@ packages: []
 
 properties:
   default_gw:
-    description: override default gateway
+    description: This feature is disabled at the moment. required value. override default gateway
     default: ""
+  check_internal: 
+    description: interval in second to see if custom route config is exists under /etc/systemd/network.
+    default: 10
+  sleep_after_updates: 
+    description: sleep in seconds after updating routes config including network restarting.
+    default: 30
   routes:
-    description: Route to be added propertie are subnet netmask gateway 
+    description: array route lists to be added. this doesn't validate the custom route config. it will create network config under /etc/systemd/network
+    default: []
     example:
       routes:
       - device: eth1

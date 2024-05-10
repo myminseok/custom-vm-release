@@ -27,6 +27,8 @@ addons:
     release: custom-vm-release
     properties:
       default_gw: 192.168.0.1
+      check_internal: 5 
+      sleep_after_updates: 10 
       routes:
       - device: eth1
         cidr: 192.4.1.0/24
@@ -34,8 +36,8 @@ addons:
       - device: eth1
         cidr: 192.5.1.0/24
         gateway: 192.168.40.1
-```        
-and it will be configured to the target VM on additional config under subdirectory named after each NIC name.
+```
+and it will be configured to the target VM on additional config under subdirectory named after each NIC name. 
 ```
 /etc/systemd/network/10_eth1.network.d/custom-network.conf
 
@@ -49,7 +51,10 @@ Destination=192.5.1.0/24
 
 ```
 
-note that, this repo has been tested in TAS 4.x on ubuntu jammy stemcell.
+#### NOTE/Limitations 
+- this release has been tested on opsman 3.x,  TAS 4.x with ubuntu jammy stemcell.
+- note that this release doesn't validate the custom route config. it will just create network config under /etc/systemd/network subdirectory named after each NIC name and restart networking.
+- set proper sleep_after_updates. because if the custom route config under /etc/systemd/network doesnot exist, then it will reset all custom config and restart networking. 
 
 Usage
 -----
@@ -119,33 +124,7 @@ bosh create-release --final
 ```
 
 ### Create runtime config
-add custom route config info into runtime config, [runtimeconfig.yml](runtimeconfig.yml)
-```
-releases:
-- name: custom-vm-release
-  version: 1.0.0
-
-addons:
-- name: custom-vm-release-addon
-  include:
-    deployments:
-    - p-isolation-segment-is1-6e18f0c63108927910d4
-  jobs:
-  - name: custom-vm-routing
-    release: custom-vm-release
-    properties:
-      default_gw: 192.168.0.1
-      routes:
-      - device: eth1
-        cidr: 192.4.1.0/24
-        gateway: 192.168.40.1
-      - device: eth1
-        cidr: 192.5.1.0/24
-        gateway: 192.168.40.1
-      - device: eth1
-        cidr: 192.3.1.0/24
-        gateway: 192.168.40.1
-```
+add custom route config info into runtime config, [runtimeconfig.yml](runtimeconfig.yml). refer to the NOTE section above
 
 update runtime config and verify. optionally delete old config if need
 ```
@@ -153,7 +132,6 @@ bosh update-runtime-config --name=custom-vm-release-addon ./runtimeconfig.yml
 bosh config --type=runtime --name=custom-vm-release-addon
 bosh delete-config --type=runtime --name=custom-vm-release-addon
 ```
-
 
 ### Apply runtime config to deployment
 use any existing deployment
@@ -257,7 +235,9 @@ default via 192.168.0.1 dev eth0 proto static
 192.168.40.0/24 dev eth1 proto kernel scope link src 192.168.40.11
 ```
 
-#### Check release logs/Troubleshooting
+### Troubleshooting
+
+#### Check release logs
 for any reason, the custom network config file is missing, /etc/systemd/network/10_ethX_network.d/custom-network.conf, then monit `custom-vm-routing` monit kicks in and re-configure the setting by running `/var/vcap/jobs/custom-vm-routing/bin/configure_routes`
 the activity is found in the log file.
 ```
@@ -271,7 +251,30 @@ isolated_diego_cell_is1/a4ccb2fa-af7a-48d1-b9de-1e8bb2a70be6:/var/vcap/bosh/log#
 [configure_routes]  restarting network
 ```
 
+#### removing custom network config from bosh deployed VM.
+redeploy deployment by recreating VMs, otherwise existing custom config will be remained.
+```
+bosh delete-config --type=runtime --name=custom-vm-release-addon
+bosh -d p-isolation-segment-is1-6e18f0c63108927910d4 manifest > manifest.yml
+bosh -d p-isolation-segment-is1-6e18f0c63108927910d4 deploy manifest.yml --recreate
+```
+
+#### duplicated runtime config.
+check if existing duplidated runtime config with this release if `bosh deploy` command fails:
+```
+Task 1763 | 00:52:59 | Error: Runtime manifest specifies release 'custom-vm-release' with version as '1.0.0'. This conflicts with version '1.0.1' specified in the deployment manifest.
+```
+
+
+### TODO
+- check if the device exists in the target VM that is set in runtime config
+
 ### Reference
 - https://bosh.io/docs/create-release/
 - https://github.com/cloudfoundry/os-conf-release
 - https://github.com/rakutentech/bosh-routing-release
+
+
+
+
+

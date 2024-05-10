@@ -1,6 +1,6 @@
 releases:
 - name: custom-vm-release
-  version: 1.0.1
+  version: 1.0.0
 
 addons:
 - name: custom-vm-release-addon
@@ -11,7 +11,9 @@ addons:
   - name: custom-vm-routing
     release: custom-vm-release
     properties:
-      default_gw: 192.168.0.1
+      #default_gw: 192.168.0.1
+      check_internal: 5
+      sleep_after_updates: 10 
       routes:
       - device: eth1
         cidr: 192.4.1.0/24
@@ -22,3 +24,10 @@ addons:
       - device: eth1
         cidr: 192.3.1.0/24
         gateway: 192.168.40.1
+      - device: eth0
+        cidr: 192.10.1.0/24
+        gateway: 192.168.0.1
+      - device: eth0
+        cidr: 192.10.2.0/24
+        gateway: 192.168.0.1
+  

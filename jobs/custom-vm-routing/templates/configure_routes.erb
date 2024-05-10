@@ -1,13 +1,19 @@
 #!/bin/sh
-LOGFILE=/var/vcap/sys/log/custom-vm-routing/custom-vm-routing.log
 set +e
-echo "[configure_routes] reconfiguring network routes..." >> $LOGFILE
-## Remove default GW
-set_default_gw() {
+LOGFILE=/var/vcap/sys/log/custom-vm-routing/custom-vm-routing.log
+echo "`date` [configure_routes] Reconfiguring network routes..." >> $LOGFILE
+
+## override default gateway
+override_default_gw() {
+  <% if p("default_gw").nil? || p("default_gw").empty? %>
+    echo "`date` [configure_routes]\t property default_gw is not set, skipping to override default gateway." >> $LOGFILE
+    return
+  <% end %>
+
   ## Removing all default GW
   for defautgw in $(ip route show | grep default | awk '{print $3}')
   do
-    echo "[configure_routes] Removing old gateway $defautgw" >> $LOGFILE
+    echo "`date` [configure_routes]\t Removing old gateway $defautgw" >> $LOGFILE
     route del default gw "$defautgw"
     if [ $? != 0 ]; then
       echo " ... failed " >> $LOGFILE
@@ -16,27 +22,30 @@ set_default_gw() {
     fi
   done
 
-  echo "[configure_routes]  Setting new gateway" >> $LOGFILE
+  echo "`date` [configure_routes]\t Setting new default gateway as <%= p("default_gw") %>" >> $LOGFILE
   route add default gw <%= p("default_gw") %>
 }
 
 
-## Remove default gateway
-#set_default_gw
+override_default_gw
 
-## Add routes
+## Add routes using ip cli.
+### comment out using ip cli.
 # <% p("routes").each do |route| %>
 # ip route add <%= route["cidr"] %> via <%= route["gateway"] %> dev <%= route["device"] %>
 # <% end %>
 
-## clean up network.d config file
+
+## Add routes using network config file.
+## clean up network.d config directory
 <% p("routes").each do |route| %>
   rm -rf /etc/systemd/network/10_<%= route["device"] %>.network.d
 <% end %>
 
+## create network config file
 <% p("routes").each do |route| %>
   CONFIG_PATH=/etc/systemd/network/10_<%= route["device"] %>.network.d/custom-network.conf
-  echo "[configure_routes] adding network route config for <%= route["cidr"] %>, <%= route["gateway"] %> $CONFIG_PATH " >> $LOGFILE
+  echo "`date` [configure_routes]\t adding network route config for <%= route["cidr"] %>, <%= route["gateway"] %> to $CONFIG_PATH " >> $LOGFILE
   DIR="$(dirname "${CONFIG_PATH}")"
   sudo mkdir -p $DIR
   echo "[Route]" >> $CONFIG_PATH 
@@ -44,6 +53,6 @@ set_default_gw() {
   echo "Destination=<%= route["cidr"] %>" >> $CONFIG_PATH
 <% end %>
 
-echo "[configure_routes] restarting network" >> $LOGFILE
+echo "`date` [configure_routes] Restarting network" >> $LOGFILE
 sudo systemctl restart systemd-networkd
 
