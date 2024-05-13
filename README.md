@@ -61,7 +61,7 @@ Usage
 
 ## Command Summary
 
-[README-commands.txt](README-commands.txt)
+[commands.txt](commands.txt)
 
 ## Detailed steps
 

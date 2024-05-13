@@ -4,7 +4,9 @@
 blobs
 .final_builds/*/*/*.tgz
 Gemfile.lock
-releases/*.tgz
+.dev_builds
+.final_builds
+releases/*
 
 # Secrets
 config/private.yml
