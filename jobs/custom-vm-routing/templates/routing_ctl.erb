@@ -8,6 +8,7 @@ cleanup_process() {
 case "$1" in
   start)
     cleanup_process
+    /var/vcap/jobs/custom-vm-routing/bin/cleanup_routes
     /var/vcap/jobs/custom-vm-routing/bin/monitor_routes &
     echo "$$" > /var/vcap/sys/run/custom-vm-routing/custom-vm-routing.pid
     ;;

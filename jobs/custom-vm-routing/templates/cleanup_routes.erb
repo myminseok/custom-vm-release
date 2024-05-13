@@ -1,0 +1,12 @@
+#!/bin/sh
+set +e
+LOGFILE=/var/vcap/sys/log/custom-vm-routing/custom-vm-routing.log
+echo "`date` [cleanup_routes] Cleaning up network routes..." >> $LOGFILE
+
+## at starting monit process, clean up network.d config directory
+<% p("routes").each do |route| %>
+  rm -rf /etc/systemd/network/10_<%= route["device"] %>.network.d
+<% end %>
+
+echo "`date` [cleanup_routes] Cleaning up network Done" >> $LOGFILE
+

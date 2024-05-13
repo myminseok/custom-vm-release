@@ -1,5 +1,6 @@
 # Builds
 .blobs
+.local_blob_tmp
 blobs
 .final_builds/*/*/*.tgz
 Gemfile.lock

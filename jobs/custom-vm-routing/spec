@@ -2,9 +2,11 @@
 name: custom-vm-routing
 
 templates:
-  routing_ctl.erb: bin/routing_ctl
+  cleanup_routes.erb: bin/cleanup_routes
   configure_routes.erb: bin/configure_routes
   monitor_routes.erb: bin/monitor_routes
+  routing_ctl.erb: bin/routing_ctl
+
 
 packages: []
 

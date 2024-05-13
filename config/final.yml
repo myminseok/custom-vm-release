@@ -2,5 +2,5 @@
 blobstore:
   provider: local
   options:
-    blobstore_path: /tmp/custom-vm-release
+    blobstore_path: .local_blob_tmp
 final_name: custom-vm-release

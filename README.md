@@ -59,25 +59,9 @@ Destination=192.5.1.0/24
 Usage
 -----
 
-## Steps summary
+## Command Summary
 
-```
-bosh create-release --final --version=1.0.0
-
-bosh create-release releases/custom-vm-release/custom-vm-release-1.0.0.yml \
-        --tarball ./custom-vm-release-1.0.0.tgz
-
-bosh upload-release ./custom-vm-release-1.0.0.tgz
-
-bosh update-runtime-config --name=custom-vm-release-addon ./runtimeconfig.yml
-
-bosh config --type=runtime --name=custom-vm-release-addon
-
-bosh -d TARGET_DEPLOYMENT manifest > manifest.yml
-
-bosh -d TARGET_DEPLOYMENT deploy manifest.yml
-```
-
+[README-commands.txt](README-commands.txt)
 
 ## Detailed steps
 
