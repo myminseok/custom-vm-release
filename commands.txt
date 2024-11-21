@@ -4,7 +4,7 @@ export VERSION=1.0.0
 
 bosh init-release
 
-bosh create-release --final --version=$VERSION
+bosh create-release --name=custom-vm-release --final --version=$VERSION
 
 bosh create-release releases/custom-vm-release/custom-vm-release-$VERSION.yml --tarball ./custom-vm-release-$VERSION.tgz
 
