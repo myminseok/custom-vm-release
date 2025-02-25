@@ -259,6 +259,7 @@ Task 1763 | 00:52:59 | Error: Runtime manifest specifies release 'custom-vm-rele
 - https://github.com/rakutentech/bosh-routing-release
 
 
-
+### Alternative
+- may register a script as system service. example is here[setup-custom-monitor.sh](https://github.com/myminseok/pivotal-docs/blob/master/rsyslog/custom-monitor/setup-custom-monitor.sh)
 
 
